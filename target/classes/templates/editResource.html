@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Resource</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error, .success {
+            color: red;
+            font-size: 14px;
+            margin-top: -0.5rem;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Edit Resource</h1>
+    <form th:action="@{/resources/edit/{id}(id=${resource.id})}" method="post">
+        <label for="name">Resource Name</label>
+        <input type="text" id="name" name="name" th:value="${resource.name}" required>
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" th:value="${resource.username}" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" th:value="${resource.password}" required>
+
+        <div th:if="${resource instanceof T(com.egemen.onlineresourcemanagementsys.entities.GameAccount)}">
+            <label for="gamePlatform">Game Platform</label>
+            <select id="gamePlatform" name="gamePlatform" required>
+                <option value="PC" th:selected="${resource.gamePlatform == 'PC'}">PC</option>
+                <option value="Xbox" th:selected="${resource.gamePlatform == 'Xbox'}">Xbox</option>
+                <option value="PlayStation" th:selected="${resource.gamePlatform == 'PlayStation'}">PlayStation</option>
+                <option value="Nintendo" th:selected="${resource.gamePlatform == 'Nintendo'}">Nintendo</option>
+            </select>
+        </div>
+
+        <div th:if="${resource instanceof T(com.egemen.onlineresourcemanagementsys.entities.Subscription)}">
+            <label for="subscriptionType">Subscription Type</label>
+            <input type="text" id="subscriptionType" name="subscriptionType" th:value="${resource.subscriptionType}">
+        </div>
+
+        <button type="submit">Update Resource</button>
+
+        <div th:if="${error}" class="error">
+            <p th:text="${error}"></p>
+        </div>
+
+        <div th:if="${success}" class="success">
+            <p th:text="${success}"></p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

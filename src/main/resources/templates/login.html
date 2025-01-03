@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .container h1 {
+      font-size: 1.8rem;
+      color: #4a90e2;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+
+    .form-error {
+      color: red;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4a90e2;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background-color: #357ABD;
+    }
+
+    .form-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .form-footer a {
+      color: #4a90e2;
+      text-decoration: none;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Welcome Back!</h1>
+
+  <!-- Display error message if exists -->
+  <div class="form-error">
+    <!-- Server-side error message can be inserted here dynamically -->
+    <span th:if="${error}" th:text="${error}"></span>
+  </div>
+
+  <!-- Login form -->
+  <form method="POST" action="/users/logininfo">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+    </div>
+    <button type="submit" class="btn">Log In</button>
+  </form>
+
+  <div class="form-footer">
+    Don't have an account? <a href="/users/register">Register here</a>
+  </div>
+</div>
+</body>
+</html>
